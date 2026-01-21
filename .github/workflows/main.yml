@@ -23,13 +23,13 @@ jobs:
       run: dotnet restore SmarterAspDemo/SmarterAspDemo.csproj
 
     - name: Build
-      run: dotnet build
+      run: dotnet build SmarterAspDemo/SmarterAspDemo.csproj
 
     - name: Run tests
-      run: dotnet test
+      run: dotnet test SmarterAspDemo/SmarterAspDemo.csproj
 
     - name: Publish
-      run: dotnet publish -c Release -o ./publish
+      run: dotnet publish SmarterAspDemo/SmarterAspDemo.csproj -c Release -o ./publish/
 
     - name: Deploy to SmarterASP via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
