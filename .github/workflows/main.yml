@@ -20,16 +20,16 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore DeployTest/DeployTest.csproj
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build DeployTest/DeployTest.csproj -c Release --no-restore
 
     - name: Run tests
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test DeployTest/DeployTest.csproj --no-build --verbosity normal
 
     - name: Publish
-      run: dotnet publish SmarterAspDemo.csproj -c Release -o ./publish
+      run: dotnet publish DeployTest/DeployTest.csproj -c Release -o ./publish
 
     - name: Deploy to SmarterASP via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
