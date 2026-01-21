@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
@@ -20,16 +20,16 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore DeployTest/DeployTest.csproj
+      run: dotnet restore
 
     - name: Build
-      run: dotnet build DeployTest/DeployTest.csproj -c Release --no-restore
+      run: dotnet build
 
     - name: Run tests
-      run: dotnet test DeployTest/DeployTest.csproj --no-build --verbosity normal
+      run: dotnet test
 
     - name: Publish
-      run: dotnet publish DeployTest/DeployTest.csproj -c Release -o ./publish
+      run: dotnet publish -c Release -o ./publish
 
     - name: Deploy to SmarterASP via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -39,3 +39,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./publish/
         server-dir: /test2/
+        dangerous-clean-slate: true
